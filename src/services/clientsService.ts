@@ -4,7 +4,7 @@ import type { Client, CreateClientInput, UpdateClientInput, UUID } from '../type
 export class ClientsService {
   static async getClients(search?: string | null): Promise<{ data: Client[]; error: string | null }> {
     try {
-      const { data, error } = await supabase.rpc('get_clients', {
+      const { data, error } = await supabase.rpc('bs_get_clients', {
         p_search_term: search && search.trim() !== '' ? search : null,
       })
       if (error) return { data: [], error: error.message }
@@ -16,7 +16,7 @@ export class ClientsService {
 
   static async addClient(input: CreateClientInput): Promise<{ data: Client | null; error: string | null }> {
     try {
-      const { data, error } = await supabase.rpc('add_client', {
+      const { data, error } = await supabase.rpc('bs_add_client', {
         p_account_id: input.account_id,
         p_first_name: input.first_name,
         p_last_name: input.last_name ?? null,
@@ -35,7 +35,7 @@ export class ClientsService {
 
   static async editClient(input: UpdateClientInput): Promise<{ data: Client | null; error: string | null }> {
     try {
-      const { data, error } = await supabase.rpc('edit_client', {
+      const { data, error } = await supabase.rpc('bs_edit_client', {
         p_client_id: input.id,
         p_first_name: input.first_name ?? null,
         p_last_name: input.last_name ?? null,
@@ -54,7 +54,7 @@ export class ClientsService {
 
   static async deleteClient(id: UUID): Promise<{ data: Client | null; error: string | null }> {
     try {
-      const { data, error } = await supabase.rpc('delete_client', {
+      const { data, error } = await supabase.rpc('bs_delete_client', {
         p_client_id: id,
       })
       if (error) return { data: null, error: error.message }
