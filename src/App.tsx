@@ -9,7 +9,11 @@ import SignupForm from './components/auth/SignupForm'
 import Dashboard from './pages/Dashboard'
 import Profile from './pages/Profile'
 import PlaceholderPage from './pages/PlaceholderPage'
+import CalendarPage from './pages/Calendar'
+import Services from './pages/Services'
+import Products from './pages/Products'
 import Clients from './pages/Clients'
+import Staff from './pages/Staff'
 import PersonaManagement from './pages/PersonaManagement'
 import {
   BarChart3,
@@ -47,11 +51,7 @@ function App() {
             <ProtectedRoute>
               <PersonaProtectedRoute>
                 <Layout>
-                  <PlaceholderPage
-                    title="Calendar"
-                    description="View and manage appointments and schedules."
-                    icon={Calendar}
-                  />
+                  <CalendarPage />
                 </Layout>
               </PersonaProtectedRoute>
             </ProtectedRoute>
@@ -98,11 +98,7 @@ function App() {
             <ProtectedRoute>
               <PersonaProtectedRoute>
                 <Layout>
-                  <PlaceholderPage
-                    title="Staff"
-                    description="Manage staff profiles, roles, and permissions."
-                    icon={User}
-                  />
+                  <Staff />
                 </Layout>
               </PersonaProtectedRoute>
             </ProtectedRoute>
@@ -111,11 +107,7 @@ function App() {
             <ProtectedRoute>
               <PersonaProtectedRoute>
                 <Layout>
-                  <PlaceholderPage
-                    title="Products"
-                    description="Maintain product catalog, inventory, and pricing."
-                    icon={Package}
-                  />
+                  <Products />
                 </Layout>
               </PersonaProtectedRoute>
             </ProtectedRoute>
@@ -124,11 +116,7 @@ function App() {
             <ProtectedRoute>
               <PersonaProtectedRoute>
                 <Layout>
-                  <PlaceholderPage
-                    title="Services"
-                    description="Configure service offerings, durations, and pricing."
-                    icon={Scissors}
-                  />
+                  <Services />
                 </Layout>
               </PersonaProtectedRoute>
             </ProtectedRoute>
