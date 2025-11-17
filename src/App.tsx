@@ -9,6 +9,7 @@ import SignupForm from './components/auth/SignupForm'
 import Dashboard from './pages/Dashboard'
 import Profile from './pages/Profile'
 import PlaceholderPage from './pages/PlaceholderPage'
+import Reports from './pages/Reports'
 import CalendarPage from './pages/Calendar'
 import Services from './pages/Services'
 import Products from './pages/Products'
@@ -145,11 +146,7 @@ function App() {
             <ProtectedRoute>
               <PersonaProtectedRoute>
                 <Layout>
-                  <PlaceholderPage
-                    title="Reports"
-                    description="Analyze business performance with comprehensive reports."
-                    icon={BarChart3}
-                  />
+                  <Reports />
                 </Layout>
               </PersonaProtectedRoute>
             </ProtectedRoute>
