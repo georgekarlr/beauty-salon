@@ -7,6 +7,7 @@ import LoginForm from './components/auth/LoginForm'
 import SignupForm from './components/auth/SignupForm'
 import Dashboard from './pages/Dashboard'
 import PlaceholderPage from './pages/PlaceholderPage'
+import POS from './pages/POS'
 import Reports from './pages/Reports'
 import CalendarPage from './pages/Calendar'
 import Services from './pages/Services'
@@ -54,11 +55,7 @@ function App() {
             <ProtectedRoute>
               <PersonaProtectedRoute>
                 <Layout>
-                  <PlaceholderPage
-                    title="Point Of Sales"
-                    description="Process sales, refunds, and manage checkout operations."
-                    icon={CreditCard}
-                  />
+                  <POS />
                 </Layout>
               </PersonaProtectedRoute>
             </ProtectedRoute>
