@@ -1,5 +1,6 @@
 import { supabase } from '../lib/supabase'
 import type { Staff, CreateStaffInput, UpdateStaffInput, StaffDetails } from '../types/staff'
+import {getCurrentDate} from "../utils/dateAndTime.ts";
 
 export class StaffService {
   static async getStaffList(search?: string | null): Promise<{ data: Staff[]; error: string | null }> {
@@ -20,7 +21,8 @@ export class StaffService {
         p_account_id: input.account_id,
         p_first_name: input.first_name,
         p_last_name: input.last_name ?? null,
-        p_email: input.email ?? null,
+          p_created_at: getCurrentDate(),
+          p_email: input.email ?? null,
         p_phone_number: input.phone_number ?? null,
         p_is_active: typeof input.is_active === 'boolean' ? input.is_active : true,
       }
@@ -41,7 +43,8 @@ export class StaffService {
     try {
       const params: Record<string, any> = {
         p_staff_id: input.id,
-        p_first_name: input.first_name ?? null,
+          p_created_at: getCurrentDate(),
+          p_first_name: input.first_name ?? null,
         p_last_name: input.last_name ?? null,
         p_email: input.email ?? null,
         p_phone_number: input.phone_number ?? null,

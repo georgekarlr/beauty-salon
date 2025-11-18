@@ -29,7 +29,7 @@ const StaffForm: React.FC<StaffFormProps> = ({ initial, onSubmit, onCancel, subm
     schedule: undefined,
   })
   // Whether the user enabled schedule editing/setting
-  const [scheduleEnabled, setScheduleEnabled] = useState(!initial)
+  const [scheduleEnabled, setScheduleEnabled] = useState(true)
 
   useEffect(() => {
     if (initial) setValues({
@@ -39,9 +39,9 @@ const StaffForm: React.FC<StaffFormProps> = ({ initial, onSubmit, onCancel, subm
       phone_number: initial.phone_number ?? '',
       is_active: typeof initial.is_active === 'boolean' ? initial.is_active : true,
       // When editing, do not load schedule by default (requires explicit enable)
-      schedule: undefined,
+      schedule: initial.schedule ?? [],
     })
-    setScheduleEnabled(!initial)
+    setScheduleEnabled(true)
   }, [initial])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
