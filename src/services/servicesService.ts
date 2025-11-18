@@ -1,5 +1,7 @@
 import { supabase } from '../lib/supabase'
 import type { Service, CreateServiceInput, UpdateServiceInput, ServiceDetails } from '../types/service'
+import {getCurrentDate} from "../utils/dateAndTime.ts";
+
 
 export class ServicesService {
   static async getServices(search?: string | null): Promise<{ data: Service[]; error: string | null }> {
@@ -21,7 +23,8 @@ export class ServicesService {
         p_name: input.name,
         p_duration_minutes: input.duration_minutes,
         p_price: input.price,
-        p_category: input.category ?? null,
+          p_created_at: getCurrentDate(),
+          p_category: input.category ?? null,
         p_description: input.description ?? null,
         p_is_active: typeof input.is_active === 'boolean' ? input.is_active : true,
       })

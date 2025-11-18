@@ -12,6 +12,8 @@ export interface Staff {
   phone_number?: string | null
   is_active: boolean
   created_at?: string | null
+    schedule?: StaffScheduleItem[]
+
 }
 
 // Weekly recurring schedule item (as used by bs_staff_schedules and RPC JSON)

@@ -59,8 +59,8 @@ const AppointmentModal: React.FC<Props> = ({ isOpen, onClose, staffList, mode, d
       setCustomerId(appointment.customer_id)
       setStaffId(appointment.staff_id)
       setServiceIds(appointment.services?.map(s => s.id) || [])
-      setStartLocal(toLocalInput(appointment.start_time))
-      setEndLocal(toLocalInput(appointment.end_time))
+      setStartLocal(appointment.start_time)
+      setEndLocal(appointment.end_time)
       setStatus(appointment.status)
       setNotes(appointment.notes || '')
     } else if (mode === 'create') {
@@ -237,19 +237,34 @@ const AppointmentModal: React.FC<Props> = ({ isOpen, onClose, staffList, mode, d
   )
 }
 
-function toLocalInput(iso: string) {
-  const d = new Date(iso)
-  const pad = (n: number) => n.toString().padStart(2, '0')
-  const yyyy = d.getFullYear()
-  const mm = pad(d.getMonth() + 1)
-  const dd = pad(d.getDate())
-  const hh = pad(d.getHours())
-  const mi = pad(d.getMinutes())
-  return `${yyyy}-${mm}-${dd}T${hh}:${mi}`
+// Replace the existing toLocalInput function with this one
+function toLocalInput(iso: string): string {
+    if (!iso) return '';
+    const d = new Date(iso);
+
+    // Use UTC methods to get the date/time components. This prevents the browser
+    // from automatically converting the stored UTC time to the user's local timezone.
+    // We want to display the exact "wall clock" time that was entered and saved.
+    const pad = (n: number) => n.toString().padStart(2, '0');
+    const yyyy = d.getUTCFullYear();
+    const mm = pad(d.getUTCMonth() + 1); // getUTCMonth is 0-indexed
+    const dd = pad(d.getUTCDate());
+    const hh = pad(d.getUTCHours());
+    const mi = pad(d.getUTCMinutes());
+
+    return `${yyyy}-${mm}-${dd}T${hh}:${mi}`;
 }
-function fromLocalInput(local: string) {
-  // Treat as local time; construct Date in local timezone
-  return new Date(local)
+
+// Replace the existing fromLocalInput function with this one
+function fromLocalInput(local: string): Date {
+    if (!local) return new Date();
+
+    // The 'datetime-local' input gives a string like "2023-10-27T10:30".
+    // By default, `new Date()` would parse this as local time.
+    // By appending 'Z', we tell the Date constructor to parse it as a UTC time.
+    // This means the internal Date value will represent 10:30 UTC, not 10:30 local time.
+    // When we later call .toISOString(), no timezone conversion will happen.
+    return new Date(local + 'Z');
 }
 
 export default AppointmentModal

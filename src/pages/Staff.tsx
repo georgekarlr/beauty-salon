@@ -66,7 +66,16 @@ const StaffPage: React.FC = () => {
       setError(error)
       return
     }
-    if (data) setItems(prev => prev.map(c => c.id === data.id ? { ...c, ...data } : c))
+    // if (data) setItems(prev => prev.map(c => c.id === data.id ? { ...c, ...data } : c))
+      if (data) {
+          const { data, error } = await StaffService.getStaffList(query.trim() || null)
+          if (error) {
+            setError(error)
+            return
+          } else {
+            setItems(data)
+          }
+      }
     setEditItem(null)
   }
 
@@ -183,6 +192,7 @@ const StaffPage: React.FC = () => {
               email: editItem.email ?? '',
               phone_number: editItem.phone_number ?? '',
               is_active: editItem.is_active,
+              schedule: editItem.schedule ?? undefined,
             }}
             onSubmit={updateStaff}
             onCancel={() => setEditItem(null)}

@@ -1,4 +1,3 @@
-import React from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
 import ProtectedRoute from './components/ProtectedRoute'
@@ -7,7 +6,6 @@ import Layout from './components/layout/Layout'
 import LoginForm from './components/auth/LoginForm'
 import SignupForm from './components/auth/SignupForm'
 import Dashboard from './pages/Dashboard'
-import Profile from './pages/Profile'
 import PlaceholderPage from './pages/PlaceholderPage'
 import Reports from './pages/Reports'
 import CalendarPage from './pages/Calendar'
@@ -17,15 +15,9 @@ import Clients from './pages/Clients'
 import Staff from './pages/Staff'
 import PersonaManagement from './pages/PersonaManagement'
 import {
-  BarChart3,
   FileText,
-  Calendar,
   Settings,
-  CreditCard,
-  Users,
-  User,
-  Package,
-  Scissors
+  CreditCard
 } from 'lucide-react'
 
 function App() {
@@ -122,10 +114,6 @@ function App() {
               </PersonaProtectedRoute>
             </ProtectedRoute>
           } />
-
-
-
-
 
 
           <Route path="/settings" element={

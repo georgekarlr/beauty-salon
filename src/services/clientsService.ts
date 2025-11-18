@@ -1,5 +1,6 @@
 import { supabase } from '../lib/supabase'
 import type { Client, CreateClientInput, UpdateClientInput, UUID } from '../types/client'
+import {getCurrentDate} from "../utils/dateAndTime.ts";
 
 export class ClientsService {
   static async getClients(search?: string | null): Promise<{ data: Client[]; error: string | null }> {
@@ -22,6 +23,7 @@ export class ClientsService {
         p_last_name: input.last_name ?? null,
         p_email: input.email ?? null,
         p_phone_number: input.phone_number ?? null,
+        p_current_date: getCurrentDate(),
         p_date_of_birth: input.date_of_birth ?? null,
         p_notes: input.notes ?? null,
       })

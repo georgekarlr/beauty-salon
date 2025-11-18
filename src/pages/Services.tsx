@@ -93,11 +93,11 @@ const ServicesPage: React.FC = () => {
     if (data) setItems(prev => prev.map(s => s.id === data.id ? { ...s, is_active: data.is_active } : s))
   }
 
-  const categories = useMemo(() => {
+  /*const categories = useMemo(() => {
     const set = new Set<string>()
     items.forEach(i => { if (i.category) set.add(i.category) })
     return Array.from(set).sort()
-  }, [items])
+  }, [items])*/
 
   return (
     <div className="p-6">

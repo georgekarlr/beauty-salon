@@ -1,5 +1,6 @@
 import { supabase } from '../lib/supabase'
 import type { Product, CreateProductInput, UpdateProductInput, ProductDetails, UUID } from '../types/product'
+import {getCurrentDate} from "../utils/dateAndTime.ts";
 
 export class ProductsService {
   static async getProducts(search?: string | null): Promise<{ data: Product[]; error: string | null }> {
@@ -23,7 +24,9 @@ export class ProductsService {
         p_stock_quantity: typeof input.stock_quantity === 'number' ? input.stock_quantity : 0,
         p_brand: input.brand ?? null,
         p_sku: input.sku ?? null,
-        p_description: input.description ?? null,
+          p_created_at: getCurrentDate(),
+
+          p_description: input.description ?? null,
         p_cost_price: input.cost_price ?? null,
         p_low_stock_threshold: typeof input.low_stock_threshold === 'number' ? input.low_stock_threshold : 5,
         p_is_active: typeof input.is_active === 'boolean' ? input.is_active : true,
