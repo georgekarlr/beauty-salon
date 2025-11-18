@@ -7,6 +7,9 @@ import AppointmentsList from '../components/dashboard/AppointmentsList'
 import RecentClientsList from '../components/dashboard/RecentClientsList'
 import LowStockList from '../components/dashboard/LowStockList'
 import {getTodaysDateRange } from '../utils/dateAndTime.ts'
+// import POSModal from '../components/pos/POSModal'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
 
 /*// Helper to get start and end of today
 const getTodaysDateRange = () => {
@@ -23,6 +26,9 @@ const DashboardPage: React.FC = () => {
     const [error, setError] = useState<string | null>(null)
     // In a real app, this state would control the date range picker
     const [dateRange, setDateRange] = useState(getTodaysDateRange())
+    const { persona } = useAuth()
+    // const [posOpen, setPosOpen] = useState(false)
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -94,9 +100,17 @@ const DashboardPage: React.FC = () => {
                         A quick overview of your business for today.
                     </p>
                 </div>
+                <div className="ml-auto">
+                    <button
+                        className="px-4 py-2 rounded-md bg-indigo-600 text-white disabled:opacity-50"
+                        onClick={() => navigate('/pos')}
+                        disabled={!persona}
+                    >New Sale</button>
+                </div>
             </div>
             {/* In a real app, you'd have a date range picker component here that updates the 'dateRange' state */}
             {renderContent()}
+            {/* <POSModal isOpen={posOpen} onClose={() => setPosOpen(false)} accountId={Number(persona?.id || 0)} /> */}
         </div>
     )
 }
