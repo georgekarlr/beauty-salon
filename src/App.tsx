@@ -7,6 +7,7 @@ import LoginForm from './components/auth/LoginForm'
 import SignupForm from './components/auth/SignupForm'
 import Dashboard from './pages/Dashboard'
 import PlaceholderPage from './pages/PlaceholderPage'
+import SalesRefunds from './pages/SalesRefunds'
 import POS from './pages/POS'
 import Reports from './pages/Reports'
 import CalendarPage from './pages/Calendar'
@@ -15,11 +16,7 @@ import Products from './pages/Products'
 import Clients from './pages/Clients'
 import Staff from './pages/Staff'
 import PersonaManagement from './pages/PersonaManagement'
-import {
-  FileText,
-  Settings,
-  CreditCard
-} from 'lucide-react'
+import { Settings } from 'lucide-react'
 
 function App() {
   return (
@@ -66,11 +63,7 @@ function App() {
             <ProtectedRoute>
               <PersonaProtectedRoute>
                 <Layout>
-                  <PlaceholderPage
-                    title="Sales & Refunds"
-                    description="Manage sales transactions and handle refunds."
-                    icon={FileText}
-                  />
+                  <SalesRefunds />
                 </Layout>
               </PersonaProtectedRoute>
             </ProtectedRoute>
