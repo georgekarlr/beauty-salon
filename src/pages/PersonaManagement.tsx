@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { PersonaService } from '../services/personaService'
-import { Users, Shield, Plus, Trash2, CreditCard as Edit, Eye, EyeOff, AlertCircle, CheckCircle, Key, UserPlus, Settings } from 'lucide-react'
+import { Users, Shield, Trash2, Eye, EyeOff, AlertCircle, CheckCircle, Key, UserPlus } from 'lucide-react'
 
 interface StaffAccount {
   name: string
@@ -65,19 +65,14 @@ const PersonaManagement: React.FC = () => {
   const loadStaffAccounts = async () => {
     setLoading(true)
     setError('')
-    
-    try {
       const result = await PersonaService.getStaffAccountNames()
       if (result.success) {
         setStaffAccounts(result.data.map(name => ({ name })))
       } else {
         setError(result.message)
       }
-    } catch (err) {
-      setError('Failed to load staff accounts')
-    } finally {
       setLoading(false)
-    }
+
   }
 
   const handleCreateStaff = async (e: React.FormEvent) => {
@@ -85,8 +80,6 @@ const PersonaManagement: React.FC = () => {
     setCreateLoading(true)
     setError('')
     setSuccess('')
-
-    try {
       const result = await PersonaService.createStaffAccount(newStaffName, newStaffPassword, newPersonName)
       if (result.success) {
         setSuccess('Staff account created successfully')
@@ -98,19 +91,14 @@ const PersonaManagement: React.FC = () => {
       } else {
         setError(result.message)
       }
-    } catch (err) {
-      setError('Failed to create staff account')
-    } finally {
       setCreateLoading(false)
-    }
+
   }
 
   const handleDeleteStaff = async () => {
     setDeleteLoading(true)
     setError('')
     setSuccess('')
-
-    try {
       const result = await PersonaService.deleteStaffAccount(staffToDelete)
       if (result.success) {
         setSuccess('Staff account deleted successfully')
@@ -120,11 +108,9 @@ const PersonaManagement: React.FC = () => {
       } else {
         setError(result.message)
       }
-    } catch (err) {
-      setError('Failed to delete staff account')
-    } finally {
+
       setDeleteLoading(false)
-    }
+
   }
 
   const handleUpdateStaffPassword = async (e: React.FormEvent) => {
@@ -133,7 +119,6 @@ const PersonaManagement: React.FC = () => {
     setError('')
     setSuccess('')
 
-    try {
       const result = await PersonaService.updateStaffPassword(selectedStaff, newStaffPasswordUpdate)
       if (result.success) {
         setSuccess('Staff password updated successfully')
@@ -143,11 +128,8 @@ const PersonaManagement: React.FC = () => {
       } else {
         setError(result.message)
       }
-    } catch (err) {
-      setError('Failed to update staff password')
-    } finally {
       setUpdateStaffLoading(false)
-    }
+
   }
 
   const handleUpdateAdminPassword = async (e: React.FormEvent) => {
@@ -162,7 +144,7 @@ const PersonaManagement: React.FC = () => {
       return
     }
 
-    try {
+
       const result = await PersonaService.updateAdminPassword(oldAdminPassword, newAdminPassword)
       if (result.success) {
         setSuccess('Admin password updated successfully')
@@ -173,11 +155,8 @@ const PersonaManagement: React.FC = () => {
       } else {
         setError(result.message)
       }
-    } catch (err) {
-      setError('Failed to update admin password')
-    } finally {
       setUpdateAdminLoading(false)
-    }
+
   }
 
   const clearMessages = () => {
