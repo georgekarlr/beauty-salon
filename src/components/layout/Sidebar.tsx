@@ -1,19 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import {
     LayoutDashboard,
-    User,
-    Settings,
-    FileText,
     BarChart3,
-    Calendar,
     X,
-    CreditCard,
-    Users,
+    Shield,
     Package,
-    Scissors,
-    ChevronDown
+    ChevronDown,
+    ChevronRight, Calendar, CreditCard
 } from 'lucide-react'
 
 interface SidebarProps {
@@ -21,50 +16,63 @@ interface SidebarProps {
     onClose: () => void
 }
 
-type NavItem = {
+interface NavigationItem {
     name: string
     href?: string
-    icon?: React.ComponentType<any>
-    children?: NavItem[]
+    icon: React.ElementType
+    children?: { name: string; href: string }[]
 }
 
-const baseNavigation: NavItem[] = [
+const adminNavigation: NavigationItem[] = [
     { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
     { name: 'Calendar', href: '/calendar', icon: Calendar },
     { name: 'Point Of Sales', href: '/pos', icon: CreditCard },
     {
         name: 'Management',
+        icon: Package,
         children: [
-            { name: 'Sales & Refunds', href: '/management/sales-refunds', icon: FileText },
-            { name: 'Clients', href: '/management/clients', icon: Users },
-            { name: 'Staff', href: '/management/staff', icon: User },
-            { name: 'Products', href: '/management/products', icon: Package },
-            { name: 'Services', href: '/management/services', icon: Scissors },
+            { name: 'Sales & Refunds', href: '/management/sales-refunds' },
+            { name: 'Clients', href: '/management/clients'},
+            { name: 'Staff', href: '/management/staff' },
+            { name: 'Products', href: '/management/products' },
+            { name: 'Services', href: '/management/services'},
         ],
     },
     { name: 'Reports', href: '/reports', icon: BarChart3 },
-    { name: 'Settings', href: '/settings', icon: Settings },
+    { name: 'Persona Management', href: '/persona-management', icon: Shield },
+]
+
+
+const staffNavigation: NavigationItem[] = [
+    { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
+    { name: 'Calendar', href: '/calendar', icon: Calendar },
+    { name: 'Point Of Sales', href: '/pos', icon: CreditCard },
+    {
+        name: 'Management',
+        icon: Package,
+        children: [
+            { name: 'Sales & Refunds', href: '/management/sales-refunds' },
+        ],
+    },
 ]
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
     const location = useLocation()
     const { persona } = useAuth()
-    const navigation = baseNavigation
+    const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set(['Management']))
 
-    // Track which nested sections are open; default all sections with children to open
-    const [openSections, setOpenSections] = React.useState<Record<string, boolean>>(() =>
-        Object.fromEntries(
-            navigation
-                .filter((item) => item.children && item.children.length > 0)
-                .map((item) => [item.name, true])
-        )
-    )
+    const navigation = persona?.type === 'admin' ? adminNavigation : staffNavigation
 
-    const toggleSection = (name: string) => {
-        setOpenSections((prev) => ({
-            ...prev,
-            [name]: !prev[name],
-        }))
+    const toggleExpanded = (name: string) => {
+        setExpandedItems(prev => {
+            const newSet = new Set(prev)
+            if (newSet.has(name)) {
+                newSet.delete(name)
+            } else {
+                newSet.add(name)
+            }
+            return newSet
+        })
     }
 
     return (
@@ -86,10 +94,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                     {/* Header */}
                     <div className="flex items-center justify-between h-16 px-6 border-b border-gray-200">
                         <div>
-                            <h1 className="text-xl font-bold text-gray-900">Your App</h1>
+                            <h1 className="text-xl font-bold text-gray-900">BS Pro</h1>
                             {persona && (
                                 <p className="text-xs text-gray-500">
-                                    {persona.personName || (persona.type === 'admin' ? 'Admin' : (persona.loginName || 'Staff'))} Portal
+                                    {persona.type === 'admin' ? 'Admin' : (persona.personName || persona.loginName || 'Staff')} Portal
                                 </p>
                             )}
                         </div>
@@ -103,49 +111,59 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                     </div>
 
                     {/* Navigation */}
-                    <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+                    <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
                         {navigation.map((item) => {
-                            if (item.children && item.children.length > 0) {
-                                const isSectionOpen = openSections[item.name] ?? true
+                            const Icon = item.icon
+                            const isExpanded = expandedItems.has(item.name)
+                            const hasChildren = item.children && item.children.length > 0
 
-                                // Section with nested items
+                            if (hasChildren) {
+                                const isAnyChildActive = item.children!.some(child => location.pathname === child.href)
+
                                 return (
-                                    <div key={item.name} className="pt-2">
+                                    <div key={item.name}>
                                         <button
-                                            type="button"
-                                            onClick={() => toggleSection(item.name)}
-                                            className="w-full flex items-center justify-between px-3 py-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wider hover:text-gray-700"
+                                            onClick={() => toggleExpanded(item.name)}
+                                            className={`
+                        w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium rounded-lg transition-all duration-200
+                        ${isAnyChildActive
+                                                ? 'bg-blue-50 text-blue-700'
+                                                : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                                            }
+                      `}
                                         >
-                                            <span>{item.name}</span>
-                                            <ChevronDown
-                                                className={`h-4 w-4 transition-transform duration-200 ${
-                                                    isSectionOpen ? 'rotate-180' : 'rotate-0'
-                                                }`}
-                                            />
+                                            <div className="flex items-center">
+                                                <Icon className={`
+                          h-5 w-5 mr-3 flex-shrink-0
+                          ${isAnyChildActive ? 'text-blue-700' : 'text-gray-400'}
+                        `} />
+                                                {item.name}
+                                            </div>
+                                            {isExpanded ? (
+                                                <ChevronDown className="h-4 w-4" />
+                                            ) : (
+                                                <ChevronRight className="h-4 w-4" />
+                                            )}
                                         </button>
 
-                                        {isSectionOpen && (
-                                            <div className="mt-1 space-y-1">
-                                                {item.children.map((child) => {
-                                                    const isActive = location.pathname === child.href
-                                                    const Icon = child.icon!
+                                        {isExpanded && (
+                                            <div className="mt-1 ml-8 space-y-1">
+                                                {item.children!.map((child) => {
+                                                    const isChildActive = location.pathname === child.href
+
                                                     return (
                                                         <Link
                                                             key={child.name}
-                                                            to={child.href!}
+                                                            to={child.href}
                                                             onClick={onClose}
                                                             className={`
-                                flex items-center px-3 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 ml-2
-                                ${isActive
-                                                                ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700'
-                                                                : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                                block px-3 py-2 text-sm rounded-lg transition-all duration-200
+                                ${isChildActive
+                                                                ? 'bg-blue-50 text-blue-700 font-medium border-r-2 border-blue-700'
+                                                                : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                                                             }
                               `}
                                                         >
-                                                            <Icon className={`
-                                h-5 w-5 mr-3 flex-shrink-0
-                                ${isActive ? 'text-blue-700' : 'text-gray-400 group-hover:text-gray-500'}
-                              `} />
                                                             {child.name}
                                                         </Link>
                                                     )
@@ -157,7 +175,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                             }
 
                             const isActive = location.pathname === item.href
-                            const Icon = item.icon!
+
                             return (
                                 <Link
                                     key={item.name}
