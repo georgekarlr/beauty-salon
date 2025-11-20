@@ -8,7 +8,7 @@ import { useAuth } from '../contexts/AuthContext'
 
 function currency(n?: number | null) {
   const v = typeof n === 'number' ? n : 0
-  return v.toLocaleString(undefined, { style: 'currency', currency: 'USD' })
+  return v.toLocaleString(undefined, { style: 'currency', currency: 'PHP' })
 }
 
 function fmtDate(iso: string) {

@@ -63,7 +63,7 @@ const PaymentForm: React.FC<Props> = ({
             <div className="bg-gray-900 text-white p-6 text-center">
                 <p className="text-gray-400 text-sm font-medium uppercase tracking-wider mb-1">Total To Pay</p>
                 <div className="text-4xl font-bold tracking-tight">
-                    ${totalAmount.toFixed(2)}
+                    {'\u20b1'}{totalAmount.toFixed(2)}
                 </div>
             </div>
 
@@ -119,7 +119,7 @@ const PaymentForm: React.FC<Props> = ({
                         {/* Input */}
                         <div className="relative flex-1">
                             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                <span className="text-gray-400 text-lg font-semibold">$</span>
+                                <span className="text-gray-400 text-lg font-semibold">{'\u20b1'}</span>
                             </div>
                             <input
                                 type="number"
@@ -147,7 +147,7 @@ const PaymentForm: React.FC<Props> = ({
                 </span>
                             <span className="text-2xl font-bold">
                   {/* Use Math.abs on the difference to show positive money regardless of +/- */}
-                                ${Math.abs(difference).toFixed(2)}
+                                {'\u20b1'}{Math.abs(difference).toFixed(2)}
                 </span>
                         </div>
                     </div>
@@ -161,7 +161,7 @@ const PaymentForm: React.FC<Props> = ({
                                     onClick={() => setAmountTendered(amt)}
                                     className="py-2 px-3 bg-white border border-gray-200 hover:border-indigo-300 hover:text-indigo-700 hover:bg-indigo-50 rounded-lg text-sm font-medium text-gray-600 transition-colors shadow-sm"
                                 >
-                                    ${amt.toFixed(2)}
+                                    {'\u20b1'}{amt.toFixed(2)}
                                 </button>
                             ))}
                         </div>

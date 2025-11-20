@@ -43,7 +43,7 @@ const CartTable: React.FC<Props> = ({ items, updateQty, removeItem }) => {
                                 <h5 className="font-semibold text-gray-800 truncate text-sm sm:text-base">{it.name}</h5>
                             </div>
                             <div className="sm:ml-8 text-xs text-gray-500 mt-1 sm:mt-0">
-                                ${it.price.toFixed(2)} <span className="sm:hidden">per unit</span>
+                                {'\u20b1'}{it.price.toFixed(2)} <span className="sm:hidden">per unit</span>
                             </div>
                         </div>
 
@@ -77,7 +77,7 @@ const CartTable: React.FC<Props> = ({ items, updateQty, removeItem }) => {
                             {/* Total Price */}
                             <div className="text-right min-w-[60px]">
                                 <div className="font-bold text-gray-900 text-sm sm:text-base">
-                                    ${(it.price * it.quantity).toFixed(2)}
+                                    {'\u20b1'}{(it.price * it.quantity).toFixed(2)}
                                 </div>
                             </div>
                         </div>
@@ -105,7 +105,7 @@ const CartTable: React.FC<Props> = ({ items, updateQty, removeItem }) => {
                 </div>
                 <div className="flex items-center justify-between text-lg font-bold text-gray-900 pt-2 border-t border-gray-200/60">
                     <span>Total</span>
-                    <span className="text-indigo-600">${grandTotal.toFixed(2)}</span>
+                    <span className="text-indigo-600">{'\u20b1'}{grandTotal.toFixed(2)}</span>
                 </div>
             </div>
         </div>

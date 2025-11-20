@@ -67,7 +67,7 @@ const ItemsPicker: React.FC<Props> = ({ services, products, onAdd }) => {
                                 <div className="flex flex-col">
                                     <span className="font-medium text-gray-800 group-hover:text-indigo-700">{s.name}</span>
                                     <span className="text-sm font-bold text-gray-500 group-hover:text-indigo-600">
-                    ${s.price.toFixed(2)}
+                    {'\u20b1'}{s.price.toFixed(2)}
                   </span>
                                 </div>
                                 <div className="bg-gray-50 group-hover:bg-white p-1.5 rounded-md border border-gray-100 group-hover:border-indigo-200 transition-colors">
@@ -116,7 +116,7 @@ const ItemsPicker: React.FC<Props> = ({ services, products, onAdd }) => {
 
                                         <div className="flex items-center gap-2 mt-1">
                       <span className={`text-sm font-bold ${isOutOfStock ? 'text-gray-400' : 'text-gray-500 group-hover:text-emerald-600'}`}>
-                         ${p.retail_price.toFixed(2)}
+                         {'\u20b1'}{p.retail_price.toFixed(2)}
                       </span>
                                             <span className="text-gray-300 text-xs">|</span>
 

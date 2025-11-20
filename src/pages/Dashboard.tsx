@@ -69,7 +69,7 @@ const DashboardPage: React.FC = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* KPIs Section */}
                 <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-3 gap-6">
-                    <KpiCard title="Total Sales" value={`$${data.kpis.total_sales.toFixed(2)}`} />
+                    <KpiCard title="Total Sales" value={`\u20b1${data.kpis.total_sales.toFixed(2)}`} />
                     <KpiCard title="Sales Count" value={data.kpis.sales_count.toString()} />
                     <KpiCard title="Appointments" value={data.kpis.appointments_count.toString()} />
                 </div>

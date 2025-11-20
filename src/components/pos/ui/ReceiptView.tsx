@@ -92,7 +92,7 @@ const ReceiptView = forwardRef<HTMLDivElement, Props>(function ReceiptView(
                             </td>
                             <td className="py-2 text-center align-top">{it.quantity}</td>
                             <td className="py-2 text-right align-top">
-                                ${(it.price * it.quantity).toFixed(2)}
+                                {'\u20b1'}{(it.price * it.quantity).toFixed(2)}
                             </td>
                         </tr>
                     ))}
@@ -103,23 +103,23 @@ const ReceiptView = forwardRef<HTMLDivElement, Props>(function ReceiptView(
                 <div className="space-y-1 border-t border-dashed border-black pt-3 mb-6">
                     <div className="flex justify-between">
                         <span>Subtotal</span>
-                        <span>${subtotal.toFixed(2)}</span>
+                        <span>{'\u20b1'}{subtotal.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between text-gray-600">
                         <span>Tax</span>
-                        <span>${taxAmount.toFixed(2)}</span>
+                        <span>{'\u20b1'}{taxAmount.toFixed(2)}</span>
                     </div>
                     {tipAmount > 0 && (
                         <div className="flex justify-between text-gray-600">
                             <span>Tip</span>
-                            <span>${tipAmount.toFixed(2)}</span>
+                            <span>{'\u20b1'}{tipAmount.toFixed(2)}</span>
                         </div>
                     )}
 
                     {/* GRAND TOTAL */}
                     <div className="flex justify-between text-lg font-bold border-t border-black border-b border-black py-2 mt-2">
                         <span>TOTAL</span>
-                        <span>${totalAmount.toFixed(2)}</span>
+                        <span>{'\u20b1'}{totalAmount.toFixed(2)}</span>
                     </div>
                 </div>
 
@@ -127,11 +127,11 @@ const ReceiptView = forwardRef<HTMLDivElement, Props>(function ReceiptView(
                 <div className="mb-8 space-y-1 text-[11px]">
                     <div className="flex justify-between">
                         <span>Cash/Card Tendered</span>
-                        <span>${(typeof amountTendered === 'number' ? amountTendered : 0).toFixed(2)}</span>
+                        <span>{'\u20b1'}{(typeof amountTendered === 'number' ? amountTendered : 0).toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between font-bold">
                         <span>Change Due</span>
-                        <span>${changeDue.toFixed(2)}</span>
+                        <span>{'\u20b1'}{changeDue.toFixed(2)}</span>
                     </div>
                 </div>
 

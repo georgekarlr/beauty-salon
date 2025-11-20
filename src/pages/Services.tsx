@@ -169,7 +169,7 @@ const ServicesPage: React.FC = () => {
                 <div className="mt-3 grid grid-cols-3 gap-2 text-sm">
                   <div>
                     <div className="text-gray-500">Price</div>
-                    <div className="font-medium">${Number(item.price).toFixed(2)}</div>
+                    <div className="font-medium">{'\u20b1'}{Number(item.price).toFixed(2)}</div>
                   </div>
                   <div>
                     <div className="text-gray-500">Category</div>
