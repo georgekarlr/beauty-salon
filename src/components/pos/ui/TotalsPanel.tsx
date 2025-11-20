@@ -37,13 +37,13 @@ const TotalsPanel: React.FC<Props> = ({ subtotal, taxAmount, totalAmount, taxRat
       </div>
       <div className="text-right space-y-1">
         <div>
-          Subtotal: <span className="font-medium">${subtotal.toFixed(2)}</span>
+          Subtotal: <span className="font-medium">{'\u20b1'}{subtotal.toFixed(2)}</span>
         </div>
         <div>
-          Tax: <span className="font-medium">${taxAmount.toFixed(2)}</span>
+          Tax: <span className="font-medium">{'\u20b1'}{taxAmount.toFixed(2)}</span>
         </div>
         <div>
-          Total: <span className="font-semibold">${totalAmount.toFixed(2)}</span>
+          Total: <span className="font-semibold">{'\u20b1'}{totalAmount.toFixed(2)}</span>
         </div>
       </div>
     </div>

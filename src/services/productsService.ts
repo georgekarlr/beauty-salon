@@ -46,7 +46,9 @@ export class ProductsService {
         p_name: input.name ?? null,
         p_brand: input.brand ?? null,
         p_sku: input.sku ?? null,
-        p_description: input.description ?? null,
+          p_created_at: getCurrentDate(),
+
+          p_description: input.description ?? null,
         p_retail_price: typeof input.retail_price === 'number' ? input.retail_price : null,
         p_cost_price: typeof input.cost_price === 'number' ? input.cost_price : null,
         p_low_stock_threshold: typeof input.low_stock_threshold === 'number' ? input.low_stock_threshold : null,
@@ -66,6 +68,8 @@ export class ProductsService {
         p_product_id: productId,
         p_adjustment_amount: amount,
         p_reason: reason,
+          p_created_at: getCurrentDate(),
+
       })
       if (error) return { data: null, error: error.message }
       const row = (data as any[])?.[0] || null

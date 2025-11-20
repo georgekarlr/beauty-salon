@@ -41,7 +41,8 @@ export class ServicesService {
       const { data, error } = await supabase.rpc('bs_edit_service', {
         p_service_id: input.id,
         p_name: input.name ?? null,
-        p_duration_minutes: typeof input.duration_minutes === 'number' ? input.duration_minutes : null,
+          p_created_at: getCurrentDate(),
+          p_duration_minutes: typeof input.duration_minutes === 'number' ? input.duration_minutes : null,
         p_price: typeof input.price === 'number' ? input.price : null,
         p_category: input.category ?? null,
         p_description: input.description ?? null,
