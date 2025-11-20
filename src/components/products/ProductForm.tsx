@@ -133,7 +133,7 @@ const ProductForm: React.FC<Props> = ({ initial, onSubmit, onCancel, submitLabel
                             <label className="block text-sm font-semibold text-gray-700 mb-1">Retail Price <span className="text-red-500">*</span></label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <span className="text-gray-500 font-bold">$</span>
+                                    <span className="text-gray-500 font-bold">{'\u20b1'}</span>
                                 </div>
                                 <input
                                     type="number"
@@ -152,7 +152,7 @@ const ProductForm: React.FC<Props> = ({ initial, onSubmit, onCancel, submitLabel
                             <label className="block text-sm font-medium text-gray-700 mb-1">Cost Price (Optional)</label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <span className="text-gray-400">$</span>
+                                    <span className="text-gray-400">{'\u20b1'}</span>
                                 </div>
                                 <input
                                     type="number"
