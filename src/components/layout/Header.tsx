@@ -29,8 +29,8 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
           >
             <Menu className="h-5 w-5" />
           </button>
-          <h2 className="ml-2 text-lg font-semibold text-gray-900">
-            BS Pro
+          <h2 className="ml-2 text-xl font-semibold text-gray-900">
+              Service Booking & POS System
           </h2>
         </div>
 
