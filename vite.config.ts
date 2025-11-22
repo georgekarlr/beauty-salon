@@ -13,8 +13,8 @@ export default defineConfig({
                 enabled: true,
             },
             manifest: {
-                name: 'Service Booking & POS System',
-                short_name: 'SB POS',
+                name: 'Service Management System',
+                short_name: 'SMS',
                 description: 'Manage your business services and book appointments effortlessly.',
                 start_url: '/',
                 scope: '/',
