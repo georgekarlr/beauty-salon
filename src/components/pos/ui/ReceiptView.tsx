@@ -18,7 +18,7 @@ type Props = {
 
 const ReceiptView = forwardRef<HTMLDivElement, Props>(function ReceiptView(
     {
-        businessName = 'Beauty Salon',
+        businessName = 'SMS POS',
         selectedClient,
         items,
         subtotal,
